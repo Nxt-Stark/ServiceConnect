@@ -25,7 +25,7 @@ function Sidebar({ activeMenu, setActiveMenu }) {
   return (
     <>
       <button
-        className={`lg:hidden fixed top-4 ${isOpen ? 'right-4' : 'left-4'} text-white bg-[#4D12B9] px-3 py-2 rounded-full z-50 transition-all duration-300`}
+        className={`lg:hidden fixed top-4 ${isOpen ? 'right-4' : 'left-4'} text-[#312E81] px-3 py-2 rounded-full z-50 transition-all duration-300`}
         onClick={toggleSidebar}
       >
         <i className={`bi ${isOpen ? 'bi-x-lg' : 'bi-list'} text-2xl`}></i>
