@@ -1,6 +1,5 @@
 import React from 'react';
-import Heading from '../components/heading';  
-
+import { Heading, Heading2 } from '../components/heading'; 
 function AdsManagement() {
     return (
         <div className="lg:ml-64 ml-14 pt-1">

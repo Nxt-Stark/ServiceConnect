@@ -1,28 +1,23 @@
 import React from 'react';
 
-const InfoCard = ({ title, value, percentage, icon, color }) => {
-  return (
-    <div
-      className="flex items-center p-4 bg-white rounded-lg d-inline"
-      style={{ borderColor: color }}
-    >
-      <div
-        className="flex items-center justify-center w-12 h-12 rounded-full text-white text-xl"
-        style={{ backgroundColor: color }}
-      >
-        {icon}
+const InfoCard = ({ title, value, percentage, icon, background }) => (
+  <div className="p-4 bg-white rounded-2xl">
+    <div className="flex items-center">
+      <div className="p-4 rounded-full ml-2" style={{ background }}>
+        <div style={{ color: 'white' }}> 
+          {icon}
+        </div>
       </div>
       <div className="ml-4">
-        <h3 className="text-sm font-semibold text-gray-700">{title}</h3>
-        <p className="text-2xl font-bold text-gray-800">{value}</p>
-        <p
-          className={`text-sm ${percentage >= 0 ? 'text-green-500' : 'text-red-500'}`}
-        >
-          {percentage >= 0 ? `+${percentage}%` : `${percentage}%`} than last month
+        <h3 className="text-sm font-medium">{title}</h3>
+        <p className="text-xl font-bold">{value}</p>
+        <p className="text-sm" style={{ color: percentage > 0 ? 'green' : 'red' }}>
+          {percentage > 0 ? `+${percentage}%` : `${percentage}%`} <span className="text-gray-500">less than last month</span>
         </p>
       </div>
     </div>
-  );
-};
+  </div>
+);
 
 export default InfoCard;
+

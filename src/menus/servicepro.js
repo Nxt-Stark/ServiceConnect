@@ -1,5 +1,5 @@
 import React from 'react';
-import Heading from '../components/heading'; 
+import { Heading, Heading2 } from '../components/heading'; 
 
 function ServiceProviders() {
     return (

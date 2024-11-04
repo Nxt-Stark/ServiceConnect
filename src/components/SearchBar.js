@@ -8,7 +8,7 @@ const SearchBar = ({
   onSearch
 }) => {
   return (
-    <div className={`flex items-center bg-white rounded-full px-6 py-2 ${width}`}>
+    <div className={`flex items-center bg-white rounded-full px-6 py-3 ${width}`}>
       <FaSearch className={`${iconColor} mr-2`} />
       <input
   type="text"
