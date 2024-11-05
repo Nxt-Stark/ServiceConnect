@@ -1,5 +1,3 @@
-// BalanceAnalytics.js
-
 import React from 'react';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceDot } from 'recharts';
 

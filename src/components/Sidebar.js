@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function Sidebar({ activeMenu, setActiveMenu }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -8,18 +9,18 @@ function Sidebar({ activeMenu, setActiveMenu }) {
   };
 
   const menuItems = [
-    { name: 'Dashboard', icon: <i className="bi bi-house-door text-lg"></i> },
-    { name: 'Users', icon: <i className="bi bi-people text-lg"></i> },
-    { name: 'Service Providers', icon: <span className="material-symbols-rounded">engineering</span> },
-    { name: 'Franchisee', icon: <i className="bi bi-building text-lg"></i> },
-    { name: 'Finance', icon: <i className="bi bi-cash-coin text-lg"></i> },
-    { name: 'Accounts', icon: <i className="bi bi-safe text-lg"></i> },
-    { name: 'Profile', icon: <i className="bi bi-person text-lg"></i> },
-    { name: 'Chat', icon: <i className="bi bi-chat text-lg"></i> },
-    { name: 'Settings', icon: <i className="bi bi-gear text-lg"></i> },
-    { name: 'Service Management', icon: <i className="bi bi-briefcase text-lg"></i> },
-    { name: 'Ads Management', icon: <i className="bi bi-badge-ad text-lg"></i> },
-    { name: 'Notifications', icon: <i className="bi bi-bell text-lg"></i> },
+    { name: 'Dashboard', icon: <i className="bi bi-house-door text-lg"></i>, path: '/' },
+    { name: 'Users', icon: <i className="bi bi-people text-lg"></i>, path: '/users' },
+    { name: 'Service Providers', icon: <span className="material-symbols-rounded">engineering</span>, path: '/service-providers' },
+    { name: 'Franchisee', icon: <i className="bi bi-building text-lg"></i>, path: '/franchisee' },
+    { name: 'Finance', icon: <i className="bi bi-cash-coin text-lg"></i>, path: '/finance' },
+    { name: 'Accounts', icon: <i className="bi bi-safe text-lg"></i>, path: '/accounts' },
+    { name: 'Profile', icon: <i className="bi bi-person text-lg"></i>, path: '/profile' },
+    { name: 'Chat', icon: <i className="bi bi-chat text-lg"></i>, path: '/chat' },
+    { name: 'Settings', icon: <i className="bi bi-gear text-lg"></i>, path: '/settings' },
+    { name: 'Service Management', icon: <i className="bi bi-briefcase text-lg"></i>, path: '/service-management' },
+    { name: 'Ads Management', icon: <i className="bi bi-badge-ad text-lg"></i>, path: '/ads-management' },
+    { name: 'Notifications', icon: <i className="bi bi-bell text-lg"></i>, path: '/notifications' },
   ];
 
   return (
@@ -39,14 +40,15 @@ function Sidebar({ activeMenu, setActiveMenu }) {
         </div>
         <nav className="flex-1 overflow-y-auto">
           {menuItems.map((item, index) => (
-            <div
+            <Link
               key={index}
+              to={item.path} 
               className={`flex items-center gap-2 py-2 px-3 text-sm md:text-base cursor-pointer rounded-l-full ${activeMenu === item.name ? 'bg-[#ffffff] text-blue-900' : 'hover:bg-[#ffffff30]'}`}
               onClick={() => setActiveMenu(item.name)}
             >
               <span>{item.icon}</span>
               <span className="md:block">{item.name}</span>
-            </div>
+            </Link>
           ))}
         </nav>
         <div className='mt-4'>

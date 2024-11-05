@@ -1,8 +1,7 @@
-// Button.js
 import React from 'react';
 
 const Button = ({ variant, children, onClick, className }) => {
-  const baseStyle = "rounded-full px-8 py-3 transition text-sm font-semibold";
+  const baseStyle = "rounded-full px-8 py-3 transition text-sm font-semibold flex justify-center";
   
   const variants = {
     primary: "bg-[#4D12B9] text-white hover:bg-[#4D60B9]",

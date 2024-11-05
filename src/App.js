@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import Dashboard from './menus/dashboard';
 import Users from './menus/users';
@@ -12,39 +13,34 @@ import Settings from './menus/settings';
 import ServiceManagement from './menus/servicemanagment';
 import AdsManagement from './menus/ads';
 import Notifications from './menus/notifications';
-import './App.css';
-
-const menuItems = [
-  { name: 'Dashboard', menus: <Dashboard /> },
-  { name: 'Users', menus: <Users /> },
-  { name: 'Service Providers', menus: <ServiceProviders /> },
-  { name: 'Franchisee', menus: <Franchisee /> },
-  { name: 'Finance', menus: <Finance /> },
-  { name: 'Accounts', menus: <Accounts /> },
-  { name: 'Profile', menus: <Profile /> },
-  { name: 'Chat', menus: <Chat /> },
-  { name: 'Settings', menus: <Settings /> },
-  { name: 'Service Management', menus: <ServiceManagement /> },
-  { name: 'Ads Management', menus: <AdsManagement /> },
-  { name: 'Notifications', menus: <Notifications /> },
-];
+import StudentDetailsForm from './components/StudentDetailsForm'; 
 
 function App() {
   const [activeMenu, setActiveMenu] = useState('Dashboard');
-
-  const renderContent = () => {
-    const activeItem = menuItems.find(item => item.name === activeMenu);
-    return activeItem ? activeItem.menus : <Dashboard />;
-  };
 
   return (
     <div className="flex min-h-screen">
       <Sidebar activeMenu={activeMenu} setActiveMenu={setActiveMenu} />
       <div className="flex-1 p-4">
-        {renderContent()}
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/new-user" element={<StudentDetailsForm />} />
+          <Route path="/service-providers" element={<ServiceProviders />} />
+          <Route path="/franchisee" element={<Franchisee />} />
+          <Route path="/finance" element={<Finance />} />
+          <Route path="/accounts" element={<Accounts />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/chat" element={<Chat />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/service-management" element={<ServiceManagement />} />
+          <Route path="/ads-management" element={<AdsManagement />} />
+          <Route path="/notifications" element={<Notifications />} />
+        </Routes>
       </div>
     </div>
   );
 }
 
 export default App;
+

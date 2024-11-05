@@ -17,13 +17,13 @@ const PaymentHistory = ({ totalData, dataPerPage }) => {
       {payments.map((payment, index) => (
         <div
           key={index}
-          className={`flex flex-col w-full bg-red-500 sm:flex-row justify-between items-start sm:items-center pb-3 mb-3 ${
+          className={`flex flex-col w-full sm:flex-row justify-between items-start sm:items-center pb-3 mb-3 ${
             payment.status === 'Complete' ? 'text-green-500' :
             payment.status === 'Pending' ? 'text-yellow-500' :
             'text-red-500'
           }`}
         >
-          <div className="flex flex-col w-100% sm:flex-row sm:items-center sm:w-auto mb-6 sm:mb-0 justify-between bg-black">
+          <div className="flex flex-col w-100% sm:flex-row sm:items-center sm:w-auto mb-6 sm:mb-0 justify-between">
           <div className='flex items-center mr-2 mb-6 sm:mb-0'>
             <IconButton icon={<FaChartLine/>} backgroundColor='red' iconColor="white" />
             <p className="text-sm text-indigo-900 font-semibold ml-2">{payment.id}</p>
