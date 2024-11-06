@@ -12,7 +12,7 @@ function UserTable() {
 
   const rowsPerPage = 5;
   const totalPages = Math.ceil(users.length / rowsPerPage);
-  const navigate = useNavigate(); // Add this line
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const storedUsers = localStorage.getItem("users");
@@ -52,7 +52,7 @@ function UserTable() {
   const handleDeleteUser = (userId) => {
     const updatedUsers = users.filter((user) => user.id !== userId);
     setUsers(updatedUsers);
-    setSelectedUsers(selectedUsers.filter((id) => id !== userId)); // Remove from selected users if it's deleted
+    setSelectedUsers(selectedUsers.filter((id) => id !== userId)); 
   };
 
   const handlePageChange = (pageNumber) => {
@@ -62,7 +62,9 @@ function UserTable() {
 
   const handleViewUser = (userId) => {
     navigate(`/user/${userId}`);
+    console.log(`${userId}`);
   };
+  
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -88,7 +90,6 @@ function UserTable() {
 
   return (
     <div className="bg-white p-6 rounded-2xl overflow-x-auto">
-      {/* Table for larger screens */}
       <table className="w-full border-collapse min-w-[600px] hidden sm:table">
         <thead>
           <tr className="text-blue-900 text-left text-sm sm:text-base">
@@ -121,9 +122,9 @@ function UserTable() {
               </td>
               <td className="p-3 flex items-center gap-3 font-bold text-indigo-700">
                 <img src={user.imageUrl} alt="User" className="w-8 h-8 rounded-full sm:w-10 sm:h-10" />
-                {user.name}
+                {user.fullName}
               </td>
-              <td className="p-3 text-indigo-700 hidden md:table-cell">{user.id}</td>
+              <td className="p-3 text-indigo-700 hidden md:table-cell">#{user.id}</td>
               <td className="p-3 text-gray-500 text-xs sm:text-sm hidden sm:table-cell">{user.date}</td>
               <td className="p-3 text-center hidden sm:table-cell">{user.service}</td>
               <td className="p-3 hidden lg:table-cell">{user.address}</td>

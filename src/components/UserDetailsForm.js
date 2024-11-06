@@ -8,7 +8,7 @@ import Dropdown from './Dropdown';
 import PhoneInput from './PhoneInput';
 import Button from './Button';
 
-const StudentDetailsForm = () => {
+const UserDetailsForm = () => {
   const dispatch = useDispatch();
   const formData = useSelector((state) => state.formData);
   const genderOptions = ['Male', 'Female', 'Other'];
@@ -18,25 +18,28 @@ const StudentDetailsForm = () => {
   };
 
   const generateUniqueId = () => {
-    return `#${Math.floor(100000000 + Math.random() * 900000000)}`;
+    let lastId = localStorage.getItem('lastId') || 123456111;
+    lastId = Number(lastId) + 1;  
+    localStorage.setItem('lastId', lastId);  
+    return lastId;
   };
+  
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    // Check current state of formData
     console.log('Current formData state:', formData);
 
     const uniqueId = generateUniqueId();
     const serviceNum = 0;
     const statusDet = 'Active';
+    const todayDate = new Date();
     
-    // Create final data object
-    const finalData = { ...formData, id: uniqueId, service: serviceNum, status: statusDet };
+    const finalData = { ...formData, id: uniqueId, service: serviceNum, status: statusDet, date: todayDate };
 
-    console.log('Final data before saving:', finalData); // Debugging line
+    console.log('Final data before saving:', finalData);
 
-    // Save to local storage
     const users = JSON.parse(localStorage.getItem('users')) || [];
     users.push(finalData);
     localStorage.setItem('users', JSON.stringify(users));
@@ -63,7 +66,7 @@ const StudentDetailsForm = () => {
         <FontAwesomeIcon icon={faArrowLeft} />
       </button>
       <h2 className="bg-indigo-600 text-white text-lg font-semibold px-4 pl-12 -m-4 mb-4 py-3 pt-4 rounded-t-xl">
-        Student Details
+        User Details
       </h2>
       <form onSubmit={handleSubmit} className="p-4 flex flex-col md:flex-row md:flex-wrap gap-4">
         <PhotoUpload onUpload={handleImageUpload} className="md:w-1/2 w-full" />
@@ -170,4 +173,4 @@ const StudentDetailsForm = () => {
   );
 };
 
-export default StudentDetailsForm;
+export default UserDetailsForm;

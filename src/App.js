@@ -13,9 +13,10 @@ import Settings from './menus/settings';
 import ServiceManagement from './menus/servicemanagment';
 import AdsManagement from './menus/ads';
 import Notifications from './menus/notifications';
-import StudentDetailsForm from './components/StudentDetailsForm'; 
+import StudentDetailsForm from './components/UserDetailsForm'; 
 import UserTable from './components/UserTable';
 import UserDetail from './components/UserDetail';
+import Dealers from './components/Dealers';
 
 function App() {
   const [activeMenu, setActiveMenu] = useState('Dashboard');
@@ -27,7 +28,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/users" element={<Users />} />
-          <Route path="/user/:userId" element={<UserDetail />} />
+          <Route path="/dealers" element={<Dealers />} />
           <Route path="/new-user" element={<StudentDetailsForm />} />
           <Route path="/service-providers" element={<ServiceProviders />} />
           <Route path="/franchisee" element={<Franchisee />} />
@@ -39,6 +40,7 @@ function App() {
           <Route path="/service-management" element={<ServiceManagement />} />
           <Route path="/ads-management" element={<AdsManagement />} />
           <Route path="/notifications" element={<Notifications />} />
+          <Route path="/user/:userId" element={<UserDetail />} />
         </Routes>
       </div>
     </div>
@@ -46,4 +48,3 @@ function App() {
 }
 
 export default App;
-

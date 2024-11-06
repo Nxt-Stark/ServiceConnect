@@ -17,6 +17,7 @@ const initialState = {
     imageUrl: '',
     service: '',
     status: '',
+    date: '',
   },
 };
 

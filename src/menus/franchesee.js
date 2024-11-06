@@ -3,7 +3,8 @@ import { Heading, Heading2 } from "../components/heading";
 import Pagination from "../components/Pagination";
 import SearchBar from "../components/SearchBar";
 import IconButton from "../components/IconButton";
-import BalanceAnalytics from '../components/BalanceAnalytics';
+import BalanceAnalytics from "../components/BalanceAnalytics";
+import { useNavigate } from 'react-router-dom';
 import { FiSettings, FiBell } from "react-icons/fi";
 import InfoCard from "../components/InfoCard";
 import {
@@ -30,6 +31,10 @@ function Franchisee() {
   ];
   const serviceCategories = ["Mechanic", "House Keeping", "Laundry"];
   const bookings = [["Samantha W.", "ID 123456789", "$50,036"]];
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate('/dealers'); 
+  };
 
   return (
     <div className="lg:ml-64 pt-1 px-4">
@@ -65,13 +70,16 @@ function Franchisee() {
           icon={<FaUser />}
           background="indigo"
         />
+        <span onClick={handleClick}>
         <InfoCard
           title="Total Dealers"
           value="754"
           percentage={-0.5}
           icon={<FaBriefcase />}
           background="blue"
-        />
+          cursor="pointer"
+          hoverShadow="0 0px 20px rgba(0, 0, 0, 0.1)" 
+        /></span>
         <InfoCard
           title="Total Services"
           value="932"
@@ -125,10 +133,11 @@ function Franchisee() {
         </div>
       </div>
       <div className="mt-6">
-      <BalanceAnalytics /></div>
+        <BalanceAnalytics />
+      </div>
       <div className="mt-6 flex gap-6">
-      <PaymentHistory totalData={100} dataPerPage={5} />
-      <PaymentHistory totalData={100} dataPerPage={5} />
+        <PaymentHistory totalData={100} dataPerPage={5} />
+        <PaymentHistory totalData={100} dataPerPage={5} />
       </div>
       {/* <div className="grid grid-cols-2 gap-6">
         <Calendar />
