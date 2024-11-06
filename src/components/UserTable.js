@@ -1,17 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Pagination from './Pagination';
+import { useNavigate } from 'react-router-dom';
 
 function UserTable() {
   const [users, setUsers] = useState([]);
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [openDropdownId, setOpenDropdownId] = useState(null);
-  const [selectedUser, setSelectedUser] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const modalRef = useRef(null);
 
   const rowsPerPage = 5;
   const totalPages = Math.ceil(users.length / rowsPerPage);
+  const navigate = useNavigate(); // Add this line
 
   useEffect(() => {
     const storedUsers = localStorage.getItem("users");
@@ -48,9 +49,19 @@ function UserTable() {
       : [...selectedUsers, userId]);
   };
 
+  const handleDeleteUser = (userId) => {
+    const updatedUsers = users.filter((user) => user.id !== userId);
+    setUsers(updatedUsers);
+    setSelectedUsers(selectedUsers.filter((id) => id !== userId)); // Remove from selected users if it's deleted
+  };
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
+  };
+
+
+  const handleViewUser = (userId) => {
+    navigate(`/user/${userId}`);
   };
 
   useEffect(() => {
@@ -58,7 +69,7 @@ function UserTable() {
       if (openDropdownId && !event.target.closest('.dropdown')) {
         setOpenDropdownId(null);
       }
-      
+
       if (isModalOpen && modalRef.current && !modalRef.current.contains(event.target)) {
         setIsModalOpen(false);
       }
@@ -77,6 +88,7 @@ function UserTable() {
 
   return (
     <div className="bg-white p-6 rounded-2xl overflow-x-auto">
+      {/* Table for larger screens */}
       <table className="w-full border-collapse min-w-[600px] hidden sm:table">
         <thead>
           <tr className="text-blue-900 text-left text-sm sm:text-base">
@@ -114,12 +126,12 @@ function UserTable() {
               <td className="p-3 text-indigo-700 hidden md:table-cell">{user.id}</td>
               <td className="p-3 text-gray-500 text-xs sm:text-sm hidden sm:table-cell">{user.date}</td>
               <td className="p-3 text-center hidden sm:table-cell">{user.service}</td>
-              <td className="p-3 hidden lg:table-cell">{user.location}</td>
+              <td className="p-3 hidden lg:table-cell">{user.address}</td>
               <td className="p-3 text-center hidden md:table-cell">
-                <button className="px-2 py-1 rounded-full bg-indigo-100 text-indigo-700">
+                <button className="px-2 py-1 rounded-full bg-indigo-100 text-indigo-700" onClick={() => window.open(`tel:${user.phone}`)}>
                   <i className="bi bi-telephone"></i>
                 </button>
-                <button className="px-2 p-1 ml-2 rounded-full bg-indigo-100 text-indigo-700">
+                <button className="px-2 p-1 ml-2 rounded-full bg-indigo-100 text-indigo-700" onClick={() => window.open(`mailto:${user.email}`)}>
                   <i className="bi bi-envelope"></i>
                 </button>
               </td>
@@ -136,9 +148,9 @@ function UserTable() {
                 {openDropdownId === user.id && (
                   <div className="absolute right-20 bottom-2 mt-2 w-32 bg-white shadow border rounded-xl z-50">
                     <ul>
-                      <li className="p-2 hover:bg-gray-100 cursor-pointer text-sm">View</li>
+                    <li className="p-2 hover:bg-gray-100 cursor-pointer text-sm" onClick={() => handleViewUser(user.id)}>View</li>
                       <li className="p-2 hover:bg-gray-100 cursor-pointer text-sm">Edit</li>
-                      <li className="p-2 hover:bg-gray-100 cursor-pointer text-sm">Delete</li>
+                      <li className="p-2 hover:bg-gray-100 cursor-pointer text-sm" onClick={() => handleDeleteUser(user.id)}>Delete</li>
                     </ul>
                   </div>
                 )}
@@ -148,9 +160,49 @@ function UserTable() {
         </tbody>
       </table>
 
-      <div className='mt-2'>
-        <Pagination totalData={users.length} dataPerPage={rowsPerPage} onPageChange={handlePageChange} />
+      <div className="sm:hidden">
+        {paginatedUsers.map((user) => (
+          <div key={user.id} className=" mb-4 border-b-2 pb-4">
+            <div className="flex items-center gap-3">
+              <img src={user.image} alt="User" className="w-12 h-12 rounded-full" />
+              <div className="flex flex-col">
+                <span className="font-bold text-indigo-700">{user.name}</span>
+                <span className="text-gray-500 text-sm">{user.id}</span>
+                <span className="text-gray-500 text-xs">{user.date}</span>
+                <span className={`text-xs ${user.status === 'Active' ? 'text-green-700' : 'text-red-700'}`}>
+                  {user.status}
+                </span>
+              </div>
+            </div>
+            <div className="mt-2 flex justify-between">
+              <div className="flex gap-2">
+                <button className="px-2 py-1 rounded-full bg-indigo-100 text-indigo-700" onClick={() => window.open(`tel:${user.phone}`)}>
+                  <i className="bi bi-telephone"></i>
+                </button>
+                <button className="px-2 p-1 rounded-full bg-indigo-100 text-indigo-700" onClick={() => window.open(`mailto:${user.email}`)}>
+                  <i className="bi bi-envelope"></i>
+                </button>
+              </div>
+              <button className="text-gray-600" onClick={() => toggleDropdown(user.id)}>•••</button>
+            </div>
+            {openDropdownId === user.id && (
+              <div className="absolute right-0 mt-2 w-32 bg-white shadow border rounded-xl z-50">
+                <ul>
+                <li className="p-2 hover:bg-gray-100 cursor-pointer text-sm" onClick={() => handleViewUser(user.id)}>View</li>
+                  <li className="p-2 hover:bg-gray-100 cursor-pointer text-sm">Edit</li>
+                  <li className="p-2 hover:bg-gray-100 cursor-pointer text-sm" onClick={() => handleDeleteUser(user.id)}>Delete</li>
+                </ul>
+              </div>
+            )}
+          </div>
+        ))}
       </div>
+
+      <Pagination 
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
     </div>
   );
 }

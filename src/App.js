@@ -14,6 +14,8 @@ import ServiceManagement from './menus/servicemanagment';
 import AdsManagement from './menus/ads';
 import Notifications from './menus/notifications';
 import StudentDetailsForm from './components/StudentDetailsForm'; 
+import UserTable from './components/UserTable';
+import UserDetail from './components/UserDetail';
 
 function App() {
   const [activeMenu, setActiveMenu] = useState('Dashboard');
@@ -25,6 +27,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/users" element={<Users />} />
+          <Route path="/user/:userId" element={<UserDetail />} />
           <Route path="/new-user" element={<StudentDetailsForm />} />
           <Route path="/service-providers" element={<ServiceProviders />} />
           <Route path="/franchisee" element={<Franchisee />} />

@@ -22,24 +22,27 @@ const StudentDetailsForm = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     
-    const uniqueId = generateUniqueId(); 
-    const serviceNum = 0; 
-    const statusDet = 'Active'; 
-    const finalData = { ...formData, id: uniqueId, service: serviceNum, status:statusDet, };  
-  
-    console.log('Final data before saving:', finalData);
-  
+    // Check current state of formData
+    console.log('Current formData state:', formData);
+
+    const uniqueId = generateUniqueId();
+    const serviceNum = 0;
+    const statusDet = 'Active';
+    
+    // Create final data object
+    const finalData = { ...formData, id: uniqueId, service: serviceNum, status: statusDet };
+
+    console.log('Final data before saving:', finalData); // Debugging line
+
+    // Save to local storage
     const users = JSON.parse(localStorage.getItem('users')) || [];
-  
     users.push(finalData);
-  
     localStorage.setItem('users', JSON.stringify(users));
-  
-    alert('Form submitted successfully and data saved to local storage!'); 
+
+    alert('Form submitted successfully and data saved to local storage!');
   };
-  
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -52,8 +55,8 @@ const StudentDetailsForm = () => {
 
   return (
     <div className="ml-0 mt-12 md:mt-0 md:ml-64 mx-auto bg-white p-4 rounded-2xl relative">
-      <button 
-        onClick={handleGoBack} 
+      <button
+        onClick={handleGoBack}
         className="absolute top-4 left-4 px-2 rounded-full font-bold text-white"
         aria-label="Go Back"
       >
@@ -65,93 +68,93 @@ const StudentDetailsForm = () => {
       <form onSubmit={handleSubmit} className="p-4 flex flex-col md:flex-row md:flex-wrap gap-4">
         <PhotoUpload onUpload={handleImageUpload} className="md:w-1/2 w-full" />
 
-        <FormInput 
-          label="Full Name" 
-          placeholder="Full Name" 
+        <FormInput
+          label="Full Name"
+          placeholder="Full Name"
           name="fullName"
           value={formData.fullName}
           onChange={handleChange}
-          className="md:w-1/2 w-full" 
+          className="md:w-1/2 w-full"
         />
-        <FormInput 
-          label="Address" 
-          placeholder="Address" 
+        <FormInput
+          label="Address"
+          placeholder="Address"
           name="address"
           value={formData.address}
           onChange={handleChange}
-          className="md:w-1/2 w-full" 
+          className="md:w-1/2 w-full"
         />
-        <FormInput 
-          label="Date of Birth" 
-          type="date" 
+        <FormInput
+          label="Date of Birth"
+          type="date"
           name="dob"
           value={formData.dob}
           onChange={handleChange}
-          className="md:w-1/2 w-full" 
+          className="md:w-1/2 w-full"
         />
-        <FormInput 
-          label="Email" 
-          type="email" 
-          placeholder="Email" 
+        <FormInput
+          label="Email"
+          type="email"
+          placeholder="Email"
           name="email"
           value={formData.email}
           onChange={handleChange}
-          className="md:w-1/2 w-full" 
+          className="md:w-1/2 w-full"
         />
-        <PhoneInput 
+        <PhoneInput
           name="phone"
           value={formData.phone}
           onChange={handleChange}
-          className="md:w-1/2 w-full" 
+          className="md:w-1/2 w-full"
         />
-        <Dropdown 
-          label="Gender" 
-          options={genderOptions} 
+        <Dropdown
+          label="Gender"
+          options={genderOptions}
           name="gender"
           value={formData.gender}
           onChange={handleChange}
-          className="md:w-1/2 w-full" 
+          className="md:w-1/2 w-full"
         />
 
-        <FormInput 
-          label="House Name" 
-          placeholder="House Name" 
+        <FormInput
+          label="House Name"
+          placeholder="House Name"
           name="houseName"
           value={formData.houseName}
           onChange={handleChange}
-          className="md:w-1/2 w-full" 
+          className="md:w-1/2 w-full"
         />
-        <FormInput 
-          label="Landmark" 
-          placeholder="Landmark" 
+        <FormInput
+          label="Landmark"
+          placeholder="Landmark"
           name="landmark"
           value={formData.landmark}
           onChange={handleChange}
-          className="md:w-1/2 w-full" 
+          className="md:w-1/2 w-full"
         />
-        <FormInput 
-          label="Pin Code" 
-          placeholder="Pin Code" 
+        <FormInput
+          label="Pin Code"
+          placeholder="Pin Code"
           name="pinCode"
           value={formData.pinCode}
           onChange={handleChange}
-          className="md:w-1/2 w-full" 
+          className="md:w-1/2 w-full"
         />
-        <FormInput 
-          label="District" 
-          placeholder="District" 
+        <FormInput
+          label="District"
+          placeholder="District"
           name="district"
           value={formData.district}
           onChange={handleChange}
-          className="md:w-1/2 w-full" 
+          className="md:w-1/2 w-full"
         />
-        <FormInput 
-          label="State" 
-          placeholder="State" 
+        <FormInput
+          label="State"
+          placeholder="State"
           name="state"
           value={formData.state}
           onChange={handleChange}
-          className="md:w-1/2 w-full" 
+          className="md:w-1/2 w-full"
         />
 
         <div className="flex flex-col gap-2 md:flex-row justify-end space-y-2 md:space-y-0 md:space-x-4 col-span-2 w-full">
